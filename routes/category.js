@@ -11,7 +11,11 @@ try{
 var category = new Category({"categoryname":categoryname,"image":req.file.filename})
 category.save().then((saveData) => {
     if (category == saveData) {
+      // setTimeout(function(){
+      //   res.status(200).json({ status: true, message: "Submitted Successfully" })
+      // },2000)
       res.status(200).json({ status: true, message: "Submitted Successfully" })
+
     } else {
       res.status(200).json({ status: false, message: "Database Error" })
     }
@@ -24,18 +28,18 @@ console.log(category)
 });
 
 
-router.get('/get_all_category',async function(req, res, next) {
-    //   res.render('index', { title: 'Express' });
-    try{
-    var category = await Category.find()  
-    res.status(200).json({ status: true, message: "Get Data Successfully",data:category })
-    }catch(e){
-        console.log("sssssssssssssssssssssssss:",e)
-        res.status(500).json({ status: false, message: "Server Error" })
+// router.get('/get_all_category',async function(req, res, next) {
+//     //   res.render('index', { title: 'Express' });
+//     try{
+//     var category = await Category.find()  
+//     res.status(200).json({ status: true, message: "Get Data Successfully",data:category })
+//     }catch(e){
+//         console.log("sssssssssssssssssssssssss:",e)
+//         res.status(500).json({ status: false, message: "Server Error" })
         
-      }
-    console.log(category)
-    });
+//       }
+//     console.log(category)
+//     });
 
 
     router.post('/get_specific_category',async function(req, res, next) {

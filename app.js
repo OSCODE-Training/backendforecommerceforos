@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var jwt=require('jsonwebtoken');
 var database = require('./src/configure/database');
 database()
 var cors = require('cors');
@@ -15,6 +16,9 @@ var transactionRouter = require("./routes/transaction");
 var orderRouter = require("./routes/order");
 var cartRouter = require("./routes/cart");
 var userqueryRouter = require("./routes/userquery");
+var loginRouter = require("./routes/login");
+var categoryuRouter = require("./routes/categoryu");
+var productuRouter = require("./routes/productu");
 
 var app = express();
 
@@ -31,6 +35,31 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/login',loginRouter);
+app.use('/categoryu',categoryuRouter);
+app.use('/productu',productuRouter);
+
+
+
+
+
+app.use( (req, res, next) => {
+  const token = req.headers.authorization;
+  // console.log(token);
+  jwt.verify(token, "shhhhhh", function (err, decoded) {
+    // console.log(err, decoded);
+    // res.status(200).json(decoded);
+    if (decoded) {
+      next();
+    } else {
+      res.status(401).json({ status: false, message: "Invalid token" });
+    }
+  });
+});
+
+
+
+
 app.use('/user',userRouter);
 app.use('/category',categoryRouter);
 app.use("/product",productRouter);
