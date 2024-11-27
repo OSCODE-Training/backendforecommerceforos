@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose')
 var categorySchema = mongoose.Schema({
-    categoryname:{"type":String,require:true},
+    categoryname:{"type":String,required:true},
     image:{"type":String,require},
 
 },{ timestamps: true })
