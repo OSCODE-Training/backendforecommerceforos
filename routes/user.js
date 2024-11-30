@@ -67,7 +67,7 @@ var User = require("../src/models/user.model");
 router.post('/create_user',verifyTokenAndRole(['admin']), upload.single("picture"), async function (req, res, next) {
   //   res.render('index', { title: 'Express' });
   var { emailid, phoneno } = { ...req.body }
-  console.log("tttttttttttttttttt:", emailid + " " + phoneno)
+  // console.log("tttttttttttttttttt:", emailid + " " + phoneno)
   try {
     const status = await User.findOne({ "emailid": emailid })
     if (status) {

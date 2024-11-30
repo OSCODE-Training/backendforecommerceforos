@@ -4,17 +4,14 @@ var upload = require("../src/middlewares/multer.middleware");
 const {verifyTokenAndRole}  = require("../src/middlewares/auth.middleware");
 var Category = require("../src/models/category.model");
 /* GET home page. */
-router.post('/add_new_category',verifyTokenAndRole(['admin']), upload.single("image"), function (req, res, next) {
-  //   res.render('index', { title: 'Express' });
 
+router.post('/add_new_category',verifyTokenAndRole(['admin']), upload.single("image"), function (req, res, next) {
   try {
     var { categoryname } = req.body
     var category = new Category({ "categoryname": categoryname, "image": req.file.filename })
     category.save().then((saveData) => {
       if (category == saveData) {
-        // setTimeout(function(){
-        //   res.status(200).json({ status: true, message: "Submitted Successfully" })
-        // },2000)
+        
         res.status(200).json({ status: true, message: "Submitted Successfully" })
 
       } else {

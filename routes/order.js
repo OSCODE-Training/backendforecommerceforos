@@ -8,8 +8,6 @@ var Order = require('../src/models/order.model');
 router.post('/add_new_order', function(req, res, next) {
 //   res.render('index', { title: 'Express' });
 try{
-
-
 var body = {...req.body}
 var order = new Order(body)
 order.save().then((saveData) => {
